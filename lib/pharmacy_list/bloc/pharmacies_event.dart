@@ -34,10 +34,9 @@ class MapAddedMedicineToPharmacyEvent extends PharmaciesEvent {
   final String pharmacyId;
   const MapAddedMedicineToPharmacyEvent({
     required this.medicinesAdded,
-    required this.pharmacyId,}
-  );
+    required this.pharmacyId,
+  });
 
   @override
-  List<Object> get props => [medicinesAdded,pharmacyId ];
+  List<Object> get props => [medicinesAdded, pharmacyId];
 }
-

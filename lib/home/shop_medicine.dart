@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nimble_test_app/home/dashboard_page.dart';
 import 'package:nimble_test_app/pharmacy_list/bloc/pharmacies_bloc.dart';
 
 class ShopMedicine extends StatefulWidget {
@@ -82,7 +81,8 @@ class _ShopMedicineState extends State<ShopMedicine> {
                 medicinesAdded: cartItems,
               ));
 
-               Navigator.popUntil(context, (Route<dynamic> route) => route.isFirst);
+              Navigator.popUntil(
+                  context, (Route<dynamic> route) => route.isFirst);
             },
             child: const Text('Confirm order'),
           ),

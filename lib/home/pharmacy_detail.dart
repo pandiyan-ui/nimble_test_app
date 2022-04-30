@@ -10,13 +10,11 @@ class PharmacyDetailsPage extends StatelessWidget {
   const PharmacyDetailsPage({required this.pharmacy, Key? key})
       : super(key: key);
 
-
   @override
   Widget build(BuildContext context) {
-     const TextStyle displayStyle = TextStyle(
-          color: Colors.black54, fontSize: 20, fontWeight: FontWeight.normal);
+    const TextStyle displayStyle = TextStyle(
+        color: Colors.black54, fontSize: 20, fontWeight: FontWeight.normal);
     Widget displayAddress(Address? address) {
-      
       return Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -32,13 +30,14 @@ class PharmacyDetailsPage extends StatelessWidget {
       if (hoursString == null) {
         return SizedBox.shrink();
       }
-  
+
       List<String> hoursList = hoursString.split("\\n");
-      List<Widget> hoursListWidget =
-          hoursList.map((hour) => Padding(
-            padding: const EdgeInsets.only(top:8 ),
-            child: Text(hour.trim(), style: displayStyle),
-          ) ).toList();
+      List<Widget> hoursListWidget = hoursList
+          .map((hour) => Padding(
+                padding: const EdgeInsets.only(top: 8),
+                child: Text(hour.trim(), style: displayStyle),
+              ))
+          .toList();
       return Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -65,11 +64,15 @@ class PharmacyDetailsPage extends StatelessWidget {
             .where((element) => element.pharmacyId == pharmacy.pharmacyId)
             .toList();
       }
-      if (checkForItems.length> 0 && checkForItems[0].medicinesAdded != null) {
+      if (checkForItems.length > 0 && checkForItems[0].medicinesAdded != null) {
         final medicinesList = checkForItems[0].medicinesAdded;
         if (medicinesList != null) {
-          List<Widget> medicineListToDisplay = medicinesList.map((medicine) => Padding(padding: EdgeInsets.only(bottom:8),
-          child: SizedBox(height:20, child: Text(medicine, style: displayStyle)))).toList();
+          List<Widget> medicineListToDisplay = medicinesList
+              .map((medicine) => Padding(
+                  padding: EdgeInsets.only(bottom: 8),
+                  child: SizedBox(
+                      height: 20, child: Text(medicine, style: displayStyle))))
+              .toList();
           return Padding(
             padding: const EdgeInsets.only(top: 30.0, bottom: 20.0),
             child: Column(
@@ -82,7 +85,7 @@ class PharmacyDetailsPage extends StatelessWidget {
             ),
           );
         }
-         return SizedBox();
+        return SizedBox();
       }
       return SizedBox();
     }

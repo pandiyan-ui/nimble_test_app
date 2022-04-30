@@ -9,11 +9,10 @@ import 'package:nimble_test_app/pharmacy_list/model/pharmacy_medicines.dart';
 class DashboardPage extends StatelessWidget {
   DashboardPage({Key? key}) : super(key: key);
 
-  
   @override
   Widget build(BuildContext context) {
     const TextStyle displayStyle = TextStyle(
-          color: Colors.black54, fontSize: 20, fontWeight: FontWeight.normal);
+        color: Colors.black54, fontSize: 20, fontWeight: FontWeight.normal);
     return BlocBuilder<PharmaciesBloc, PharmaciesState>(
         builder: (context, state) {
       return Scaffold(
@@ -25,7 +24,6 @@ class DashboardPage extends StatelessWidget {
           ),
         ),
         body: SingleChildScrollView(
-            // physics: ScrollPhysics(),
             child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -56,7 +54,8 @@ class DashboardPage extends StatelessWidget {
                                         ? Icon(Icons.check_circle,
                                             size: 30, color: Colors.green)
                                         : null,
-                                    title: Text('${pharmacy.name}', style:displayStyle),
+                                    title: Text('${pharmacy.name}',
+                                        style: displayStyle),
                                     trailing: Icon(
                                       Icons.chevron_right,
                                       size: 30,

@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:nimble_test_app/home/pharmacy_detail.dart';
 import 'package:nimble_test_app/pharmacy_list/model/pharmacy.dart';
 import 'package:nimble_test_app/pharmacy_list/model/pharmacy_details.dart';
 import 'package:nimble_test_app/pharmacy_list/model/pharmacy_medicines.dart';
@@ -80,7 +79,7 @@ class PharmaciesBloc extends Bloc<PharmaciesEvent, PharmaciesState> {
       medicinesAdded: event.medicinesAdded,
       pharmacyId: event.pharmacyId,
     );
-    
+
     // List<PharmacyMedicines>? itemToAdd = [];
     // if (state.pharamacyMedicinesList == null) {
     //   itemToAdd = [currentItem];
