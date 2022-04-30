@@ -81,7 +81,7 @@ class HomePage extends StatelessWidget {
           ],
         )),
         bottomNavigationBar: Padding(
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.all(20.0),
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
                 padding: EdgeInsets.all(10.0),

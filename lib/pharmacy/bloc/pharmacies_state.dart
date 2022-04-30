@@ -19,16 +19,6 @@ abstract class PharmaciesState extends Equatable {
 
 class PharmaciesInitialState extends PharmaciesState {}
 
-// class PharmaciesListSuccessfulState extends PharmaciesState {
-//   PharmaciesListSuccessfulState(PharmaciesState state,
-//       {required List<Pharmacy> pharamacyList})
-//       : super(
-//           pharamacyList: pharamacyList,
-//           pharamacyMedicinesList: state.pharamacyMedicinesList,
-//           medicines: state.medicines,
-//         );
-// }
-
 class LocalCopyPharmacyState extends PharmaciesState {
   LocalCopyPharmacyState(
     PharmaciesState state, {
