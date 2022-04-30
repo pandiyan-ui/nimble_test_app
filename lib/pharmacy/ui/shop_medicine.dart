@@ -15,12 +15,12 @@ class _ShopMedicineState extends State<ShopMedicine> {
   List<bool> itemSelected = [];
 
   Icon addIcon = Icon(
-    Icons.add,
+    Icons.add_circle_outline_outlined,
     color: Colors.blueAccent,
     size: 35,
   );
   Icon removeIcon = Icon(
-    Icons.delete,
+    Icons.cancel,
     color: Colors.red,
     size: 35,
   );
@@ -53,21 +53,29 @@ class _ShopMedicineState extends State<ShopMedicine> {
                   return Card(
                     child: ListTile(
                       title: Text(medicine),
-                      trailing: IconButton(
-                        icon: itemSelected.elementAt(index)
-                            ? removeIcon
-                            : addIcon,
-                        onPressed: () {
-                          setState(() {
-                            itemSelected[index] =
-                                !itemSelected.elementAt(index);
-                          });
-                          if (cartItems.contains(medicine)) {
-                            cartItems.remove(medicine);
-                          } else {
-                            cartItems.add(medicine);
-                          }
-                        },
+                      trailing: Semantics(
+                        enabled: true,
+                        label: itemSelected.elementAt(index)
+                            ? "tap to remove"
+                            : "tap to add",
+                        child: IconButton(
+                          tooltip:
+                              itemSelected.elementAt(index) ? "remove" : "add",
+                          icon: itemSelected.elementAt(index)
+                              ? removeIcon
+                              : addIcon,
+                          onPressed: () {
+                            setState(() {
+                              itemSelected[index] =
+                                  !itemSelected.elementAt(index);
+                            });
+                            if (cartItems.contains(medicine)) {
+                              cartItems.remove(medicine);
+                            } else {
+                              cartItems.add(medicine);
+                            }
+                          },
+                        ),
                       ),
                     ),
                   );
@@ -75,33 +83,36 @@ class _ShopMedicineState extends State<ShopMedicine> {
             : SizedBox(),
         bottomNavigationBar: Padding(
           padding: EdgeInsets.all(20),
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.all(10.0),
-                textStyle: const TextStyle(fontSize: 20)),
-            onPressed: cartItems.isNotEmpty
-                ? () {
-                    BlocProvider.of<PharmaciesBloc>(context)
-                        .add(MapAddedMedicineToPharmacyEvent(
-                      pharmacyId: "NRxPh-HLRS",
-                      medicinesAdded: cartItems,
-                    ));
-                    showModalBottomSheet(
-                        context: context,
-                        isScrollControlled: true,
-                        builder: (BuildContext bc) {
-                          return Container(
-                            color: Colors.white,
-                            child: SuccessView(),
-                          );
-                        });
-                    Future.delayed(Duration(milliseconds: 2000), () {
-                      Navigator.popUntil(
-                          context, (Route<dynamic> route) => route.isFirst);
-                    });
-                  }
-                : null,
-            child: const Text('Confirm order'),
+          child: Semantics(
+            enabled: cartItems.isNotEmpty,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  padding: EdgeInsets.all(10.0),
+                  textStyle: const TextStyle(fontSize: 20)),
+              onPressed: cartItems.isNotEmpty
+                  ? () {
+                      BlocProvider.of<PharmaciesBloc>(context)
+                          .add(MapAddedMedicineToPharmacyEvent(
+                        pharmacyId: "NRxPh-HLRS",
+                        medicinesAdded: cartItems,
+                      ));
+                      showModalBottomSheet(
+                          context: context,
+                          isScrollControlled: true,
+                          builder: (BuildContext bc) {
+                            return Container(
+                              color: Colors.white,
+                              child: SuccessView(),
+                            );
+                          });
+                      Future.delayed(Duration(milliseconds: 2000), () {
+                        Navigator.popUntil(
+                            context, (Route<dynamic> route) => route.isFirst);
+                      });
+                    }
+                  : null,
+              child: const Text('Confirm order'),
+            ),
           ),
         ),
       );

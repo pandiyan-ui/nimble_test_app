@@ -39,12 +39,15 @@ class HomePage extends StatelessWidget {
                             itemBuilder: (BuildContext context, int index) {
                               Pharmacy pharmacy = state.pharamacyList![index];
                               List<PharmacyMedicines> checkForItem = [];
-                              if (state.pharamacyMedicinesList != null) {
+                              if (state.pharamacyMedicinesList != null &&
+                                  (state.pharamacyMedicinesList?.isNotEmpty ??
+                                      false)) {
                                 checkForItem = state.pharamacyMedicinesList
-                                    ?.where((element) =>
-                                        element.pharmacyId ==
-                                        pharmacy.pharmacyId)
-                                    .toList() as List<PharmacyMedicines>;
+                                        ?.where((element) =>
+                                            element.pharmacyId ==
+                                            pharmacy.pharmacyId)
+                                        .toList() ??
+                                    [];
                               }
                               bool isAddedAlready = checkForItem.isNotEmpty;
                               return Card(
@@ -55,10 +58,8 @@ class HomePage extends StatelessWidget {
                                         : null,
                                     title: Text('${pharmacy.name}',
                                         style: displayStyle),
-                                    trailing: Icon(
-                                      Icons.chevron_right,
-                                      size: 30,
-                                    ),
+                                    trailing: Icon(Icons.chevron_right,
+                                        size: 38, color: Colors.blue),
                                     onTap: () {
                                       BlocProvider.of<PharmaciesBloc>(context)
                                           .add(PharmacyDetailRequestEvent(
