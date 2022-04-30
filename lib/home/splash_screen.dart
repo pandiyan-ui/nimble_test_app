@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nimble_test_app/home/dashboard_page.dart';
-import 'package:nimble_test_app/pharmacy_list/bloc/pharmacies_bloc.dart';
+import 'package:nimble_test_app/home/home_page.dart';
+import 'package:nimble_test_app/pharmacy/bloc/pharmacies_bloc.dart';
 
 class SplashScreen extends StatefulWidget {
   SplashScreen();
@@ -21,7 +21,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Timer(
         Duration(milliseconds: 2000),
         () => Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => DashboardPage())));
+            context, MaterialPageRoute(builder: (context) => HomePage())));
   }
 
   @override
@@ -44,7 +44,7 @@ class _SplashScreenState extends State<SplashScreen> {
                     color: Colors.white, size: 100),
               ),
               SizedBox(height: 30),
-              Text("Nimble Rx",
+              Text("Pharmacy test",
                   style: TextStyle(
                     fontSize: 40,
                     color: Color(0xFF4174FE),

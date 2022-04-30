@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nimble_test_app/home/pharmacy_detail.dart';
-import 'package:nimble_test_app/home/shop_medicine.dart';
-import 'package:nimble_test_app/pharmacy_list/bloc/pharmacies_bloc.dart';
-import 'package:nimble_test_app/pharmacy_list/model/pharmacy.dart';
-import 'package:nimble_test_app/pharmacy_list/model/pharmacy_medicines.dart';
+import 'package:nimble_test_app/pharmacy/bloc/pharmacies_bloc.dart';
+import 'package:nimble_test_app/pharmacy/model/pharmacy.dart';
+import 'package:nimble_test_app/pharmacy/model/pharmacy_medicines.dart';
+import 'package:nimble_test_app/pharmacy/ui/pharmacy_details.dart';
+import 'package:nimble_test_app/pharmacy/ui/shop_medicine.dart';
 
-class DashboardPage extends StatelessWidget {
-  DashboardPage({Key? key}) : super(key: key);
+class HomePage extends StatelessWidget {
+  HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -41,13 +41,12 @@ class DashboardPage extends StatelessWidget {
                               List<PharmacyMedicines> checkForItem = [];
                               if (state.pharamacyMedicinesList != null) {
                                 checkForItem = state.pharamacyMedicinesList
-                                        ?.where((element) =>
-                                            element.pharmacyId ==
-                                            pharmacy.pharmacyId)
-                                        .toList() ??
-                                    [];
+                                    ?.where((element) =>
+                                        element.pharmacyId ==
+                                        pharmacy.pharmacyId)
+                                    .toList() as List<PharmacyMedicines>;
                               }
-                              bool isAddedAlready = checkForItem.length > 0;
+                              bool isAddedAlready = checkForItem.isNotEmpty;
                               return Card(
                                 child: ListTile(
                                     leading: isAddedAlready
@@ -74,25 +73,27 @@ class DashboardPage extends StatelessWidget {
                                     }),
                               );
                             }),
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              textStyle: const TextStyle(fontSize: 20)),
-                          onPressed: () {
-                            BlocProvider.of<PharmaciesBloc>(context)
-                                .add(MedicationListRequestEvent());
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => ShopMedicine()));
-                          },
-                          child: const Text('Start order'),
-                        ),
                       ],
                     ),
                   )
                 : SizedBox(),
           ],
         )),
+        bottomNavigationBar: Padding(
+          padding: const EdgeInsets.all(20),
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+                padding: EdgeInsets.all(10.0),
+                textStyle: const TextStyle(fontSize: 20)),
+            onPressed: () {
+              BlocProvider.of<PharmaciesBloc>(context)
+                  .add(MedicationListRequestEvent());
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => ShopMedicine()));
+            },
+            child: const Text('Start order'),
+          ),
+        ),
       );
     });
   }

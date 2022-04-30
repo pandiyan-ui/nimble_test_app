@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
-import 'package:nimble_test_app/pharmacy_list/model/address.dart';
+import 'package:nimble_test_app/pharmacy/model/address.dart';
 
 @immutable
 class PharmacyDetails extends Equatable {

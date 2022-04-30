@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nimble_test_app/home/splash_screen.dart';
-import 'package:nimble_test_app/pharmacy_list/bloc/pharmacies_bloc.dart';
+import 'package:nimble_test_app/pharmacy/bloc/pharmacies_bloc.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

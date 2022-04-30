@@ -1,6 +1,6 @@
-import 'package:nimble_test_app/pharmacy_list/model/pharmacy_details.dart';
-import 'package:nimble_test_app/pharmacy_list/model/seed_response.dart';
-import 'package:nimble_test_app/pharmacy_list/repo/pharmacies_data_provider.dart';
+import 'package:nimble_test_app/pharmacy/model/pharmacies_response.dart';
+import 'package:nimble_test_app/pharmacy/model/pharmacy_details.dart';
+import 'package:nimble_test_app/pharmacy/repo/pharmacies_data_provider.dart';
 
 class PharmaciesRepository {
   final PharmaciesDataProvider _pharmaciesDataProvider;

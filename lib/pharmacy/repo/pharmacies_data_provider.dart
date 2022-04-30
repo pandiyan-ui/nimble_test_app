@@ -1,6 +1,6 @@
 import 'package:http/http.dart' as http;
-import 'package:nimble_test_app/pharmacy_list/model/pharmacy_details.dart';
-import 'package:nimble_test_app/pharmacy_list/model/seed_response.dart';
+import 'package:nimble_test_app/pharmacy/model/pharmacy_details.dart';
+import 'package:nimble_test_app/pharmacy/model/pharmacies_response.dart';
 
 class PharmaciesDataProvider {
   Future<PharmaciesResponse> fetchPharmaciesData() async {

@@ -1,10 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:nimble_test_app/pharmacy_list/model/pharmacy.dart';
-import 'package:nimble_test_app/pharmacy_list/model/pharmacy_details.dart';
-import 'package:nimble_test_app/pharmacy_list/model/pharmacy_medicines.dart';
-import 'package:nimble_test_app/pharmacy_list/model/seed_response.dart';
-import 'package:nimble_test_app/pharmacy_list/repo/pharmacies_repo.dart';
+import 'package:nimble_test_app/pharmacy/model/pharmacies_response.dart';
+import 'package:nimble_test_app/pharmacy/model/pharmacy.dart';
+import 'package:nimble_test_app/pharmacy/model/pharmacy_details.dart';
+import 'package:nimble_test_app/pharmacy/model/pharmacy_medicines.dart';
+import 'package:nimble_test_app/pharmacy/repo/pharmacies_repo.dart';
 
 part 'pharmacies_event.dart';
 part 'pharmacies_state.dart';
@@ -45,10 +45,10 @@ class PharmaciesBloc extends Bloc<PharmaciesEvent, PharmaciesState> {
     try {
       PharmacyDetails response = await _pharmaciesRepository
           .fetchPharmacyDetailsData(event.pharmacyId);
-      // yield the successful state stream
+      // emit the successful state
       emit(LocalCopyPharmacyState(state, pharmacyDetail: response));
     } catch (e) {
-      // yield the unsuccessful state stream
+      // emit the unsuccessful state stream
       emit(
         PharmaciesListFailureState(message: "Error happened try again later"),
       );
@@ -60,11 +60,11 @@ class PharmaciesBloc extends Bloc<PharmaciesEvent, PharmaciesState> {
     emit(PharmaciesUnlikeState(state));
     try {
       String response = await _pharmaciesRepository.fetchMedicationListData();
-      // yield the successful state stream
+      // emit the successful state stream
 
       emit(LocalCopyPharmacyState(state, medicines: response.split(",\n")));
     } catch (e) {
-      // yield the unsuccessful state stream
+      // emit the unsuccessful state stream
       emit(PharmaciesListFailureState(
           message: "Error happened try again later"));
     }

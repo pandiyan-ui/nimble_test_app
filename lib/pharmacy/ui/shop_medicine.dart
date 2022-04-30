@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nimble_test_app/pharmacy_list/bloc/pharmacies_bloc.dart';
+import 'package:nimble_test_app/pharmacy/bloc/pharmacies_bloc.dart';
+import 'package:nimble_test_app/pharmacy/ui/success_view.dart';
 
 class ShopMedicine extends StatefulWidget {
   ShopMedicine({Key? key}) : super(key: key);
@@ -11,7 +12,7 @@ class ShopMedicine extends StatefulWidget {
 
 class _ShopMedicineState extends State<ShopMedicine> {
   final List<String> cartItems = [];
-  List<bool> selected = [];
+  List<bool> itemSelected = [];
 
   Icon addIcon = Icon(
     Icons.add,
@@ -30,7 +31,7 @@ class _ShopMedicineState extends State<ShopMedicine> {
         builder: (context, state) {
       if (state.medicines != null) {
         for (int i = 0; i < state.medicines!.length; i++) {
-          selected.add(false);
+          itemSelected.add(false);
         }
       }
 
@@ -53,10 +54,13 @@ class _ShopMedicineState extends State<ShopMedicine> {
                     child: ListTile(
                       title: Text(medicine),
                       trailing: IconButton(
-                        icon: selected.elementAt(index) ? removeIcon : addIcon,
+                        icon: itemSelected.elementAt(index)
+                            ? removeIcon
+                            : addIcon,
                         onPressed: () {
                           setState(() {
-                            selected[index] = !selected.elementAt(index);
+                            itemSelected[index] =
+                                !itemSelected.elementAt(index);
                           });
                           if (cartItems.contains(medicine)) {
                             cartItems.remove(medicine);
@@ -73,17 +77,30 @@ class _ShopMedicineState extends State<ShopMedicine> {
           padding: EdgeInsets.all(20),
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
+                padding: EdgeInsets.all(10.0),
                 textStyle: const TextStyle(fontSize: 20)),
-            onPressed: () {
-              BlocProvider.of<PharmaciesBloc>(context)
-                  .add(MapAddedMedicineToPharmacyEvent(
-                pharmacyId: "NRxPh-HLRS",
-                medicinesAdded: cartItems,
-              ));
-
-              Navigator.popUntil(
-                  context, (Route<dynamic> route) => route.isFirst);
-            },
+            onPressed: cartItems.isNotEmpty
+                ? () {
+                    BlocProvider.of<PharmaciesBloc>(context)
+                        .add(MapAddedMedicineToPharmacyEvent(
+                      pharmacyId: "NRxPh-HLRS",
+                      medicinesAdded: cartItems,
+                    ));
+                    showModalBottomSheet(
+                        context: context,
+                        isScrollControlled: true,
+                        builder: (BuildContext bc) {
+                          return Container(
+                            color: Colors.white,
+                            child: SuccessView(),
+                          );
+                        });
+                    Future.delayed(Duration(milliseconds: 2000), () {
+                      Navigator.popUntil(
+                          context, (Route<dynamic> route) => route.isFirst);
+                    });
+                  }
+                : null,
             child: const Text('Confirm order'),
           ),
         ),
